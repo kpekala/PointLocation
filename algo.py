@@ -9,7 +9,7 @@ from structures import *
 """
 
 
-def simpleCase(tzMap, trapezoid, segment, visualizer = None):
+def simpleCase(dag, trapezoid, segment, visualizer = None):
     leftTrapezoid = TrapezoidNode(trapezoid.topSegment, trapezoid.bottomSegment, trapezoid.leftPoint, segment.leftPoint)
     topTrapezoid = TrapezoidNode(trapezoid.topSegment, segment, segment.leftPoint, segment.rightPoint)
     bottomTrapezoid = TrapezoidNode(segment, trapezoid.bottomSegment, segment.leftPoint, segment.rightPoint)
@@ -18,10 +18,10 @@ def simpleCase(tzMap, trapezoid, segment, visualizer = None):
     segNode = YNode(segment, topTrapezoid, bottomTrapezoid)
     q = XNode(segment.rightPoint, segNode, rightTrapezoid)
     p = XNode(segment.leftPoint, leftTrapezoid, q)
-    trapezoid.replacePositionWith(tzMap, p)
+    trapezoid.replacePositionWith(dag, p)
 
     if visualizer is not None:
-        visualizer.addDag(tzMap)
+        visualizer.addDag(dag)
 
 
 """
@@ -30,7 +30,7 @@ def simpleCase(tzMap, trapezoid, segment, visualizer = None):
 """
 
 
-def hardCase(tzMap, intersectedTrapezoids, segment, visualizer):
+def hardCase(dag, intersectedTrapezoids, segment, visualizer):
 
     upperMidTrapezoid = None
     lowerMidTrapezoid = None
@@ -54,7 +54,7 @@ def hardCase(tzMap, intersectedTrapezoids, segment, visualizer):
                 continue
             segNode = YNode(segment, upperMidTrapezoid, lowerMidTrapezoid)
             p = XNode(segment.leftPoint, leftTrapezoid, segNode)
-            trapezoid.replacePositionWith(tzMap, p)
+            trapezoid.replacePositionWith(dag, p)
 
         elif trapezoid.containsPoint(segment.rightPoint):
             # case where the right endpoint of the new segment lies in the trapezoid
@@ -69,7 +69,7 @@ def hardCase(tzMap, intersectedTrapezoids, segment, visualizer):
                 continue
             segNode = YNode(segment, upperMidTrapezoid, lowerMidTrapezoid)
             q = XNode(segment.rightPoint, segNode, rightTrapezoid)
-            trapezoid.replacePositionWith(tzMap, q)
+            trapezoid.replacePositionWith(dag, q)
 
         else:
             # case where the no endpoint of the new segment lies in the trapezoid
@@ -86,10 +86,10 @@ def hardCase(tzMap, intersectedTrapezoids, segment, visualizer):
                 mergeUpper = True
 
             segNode = YNode(segment, upperMidTrapezoid, lowerMidTrapezoid)
-            trapezoid.replacePositionWith(tzMap, segNode)
+            trapezoid.replacePositionWith(dag, segNode)
 
     if visualizer is not None:
-        visualizer.addDag(tzMap)
+        visualizer.addDag(dag)
 
 
 def findIntersectedTrapezoids(node, segment, intersectedTrapezoids):
@@ -149,7 +149,7 @@ def findArea(node, point):
         return tr2
 
 
-def algo(lineSegments, visualizer = None):
+def buildDag(lineSegments, visualizer = None):
     dag = Dag(createBoundingBox())
 
     for segment in lineSegments:

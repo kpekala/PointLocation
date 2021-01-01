@@ -1,4 +1,4 @@
-from algo import algo, findArea
+from algo import buildDag, findArea
 from ui.lib import Plot
 from ui.visualizer import Visualizer
 from ui.plot_utils import *
@@ -11,7 +11,7 @@ if __name__ == '__main__':
 
     lines = getLineObjects(getLineSegments(plot))
 
-    dag = algo(lines, visualizer)
+    dag = buildDag(lines, visualizer)
     tr = findArea(dag.root,Point("",0.5,0.5))
     visualizer.addFigure(tr.toLines())
 
