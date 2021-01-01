@@ -12,10 +12,10 @@ def createBox(points: List[Point]):
 
     #topEdge = Line(Point(left.x, top.y), Point(right.x, top.y))
     #bottomEdge = Line(Point(left.x, bottom.y), Point(right.x, bottom.y))
-    left = Point(0,0)
-    right = Point(1,0)
-    topEdge = Line(Point(0,1), Point(1,1))
-    bottomEdge = Line(Point(0,0), Point(1,0))
+    left = Point(0, )
+    right = Point(0, )
+    topEdge = Line(Point(1, ), Point(1, ))
+    bottomEdge = Line(Point(0, ), Point(0, ))
     return TrapezoidNode(topEdge, bottomEdge, left, right)
 
 

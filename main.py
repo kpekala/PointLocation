@@ -12,7 +12,7 @@ if __name__ == '__main__':
     lines = getLineObjects(getLineSegments(plot))
 
     dag = buildDag(lines, visualizer)
-    tr = findArea(dag.root,Point("",0.5,0.5))
+    tr = findArea(dag.root, Point(0.5, 0.5))
     visualizer.addFigure(tr.toLines())
 
     plot = Plot(visualizer.getScenes())

@@ -13,7 +13,7 @@ def getFigureSegments(plot):
 
 
 def getLineObjects(lines):
-    return [Segment("",Point("",line[0][0], line[0][1]), Point("",line[1][0], line[1][1])) for line in lines]
+    return [Segment(Point(line[0][0], line[0][1]), Point(line[1][0], line[1][1])) for line in lines]
 
 def getPoints(plot):
     seg = plot.get_added_elements().lines[0].lines

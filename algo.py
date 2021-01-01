@@ -113,19 +113,12 @@ def findIntersectedTrapezoids(node, segment, intersectedTrapezoids):
         findIntersectedTrapezoids(node.below, segment, intersectedTrapezoids)
 
 
-class Dag:
-    def __init__(self, root):
-        self.root = root
-
-    def updateRoot(self, root):
-        self.root = root
-
 
 def createBoundingBox():
-    left = Point("",0,0)
-    right = Point("",1,0)
-    topEdge = Segment("",Point("",0,1), Point("",1,1))
-    bottomEdge = Segment("",Point("",0,0), Point("",1,0))
+    left = Point(0, 0)
+    right = Point(1, 0)
+    topEdge = Segment(Point(0, 1), Point(1, 1))
+    bottomEdge = Segment(Point(0, 0), Point(1, 0))
     return TrapezoidNode(topEdge, bottomEdge, left, right)
 
 

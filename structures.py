@@ -3,8 +3,7 @@ from utils import functionValue
 
 
 class Point:
-    def __init__(self, name, x, y):
-        self.name = name
+    def __init__(self, x, y):
         self.x = x
         self.y = y
         self.seen = False
@@ -17,8 +16,7 @@ class Point:
 
 
 class Segment:
-    def __init__(self, name, p, q):
-        self.name = name
+    def __init__(self, p, q):
         self.leftPoint = p
         self.rightPoint = q
         if q.x < p.x:
@@ -115,7 +113,7 @@ class TrapezoidNode:
             return True
         resY = segment.getY(self.leftPoint.x)
         if resY is not None:
-            leftIntersection = Point(None, self.leftPoint.x, resY)
+            leftIntersection = Point(self.leftPoint.x, resY)
             if self.containsPoint(leftIntersection):
                 return True
         return False
@@ -146,9 +144,9 @@ class TrapezoidNode:
 
     def toLines(self):
         lines = [self.topSegment.toList(), self.bottomSegment.toList()]
-        leftVerticalLine = Segment("",self.topSegment.leftPoint, self.bottomSegment.leftPoint)
+        leftVerticalLine = Segment(self.topSegment.leftPoint, self.bottomSegment.leftPoint)
         if self.rightPoint is not None:
-            rightVerticalLine = Segment("",self.topSegment.rightPoint, self.bottomSegment.rightPoint)
+            rightVerticalLine = Segment(self.topSegment.rightPoint, self.bottomSegment.rightPoint)
             lines.append(rightVerticalLine.toList())
         lines.append(leftVerticalLine.toList())
         return lines
@@ -161,14 +159,23 @@ class TrapezoidNode:
 def createTrapezoid(topSegment, bottomSegment, leftPoint, rightPoint):
     newTr = TrapezoidNode()
 
-    leftUpperPoint = Point("",leftPoint.x, functionValue(topSegment, leftPoint.x))
-    leftLowerPoint = Point("",leftPoint.x, functionValue(bottomSegment, leftPoint.x))
-    rightUpperPoint = Point("",rightPoint.x, functionValue(topSegment, rightPoint.x))
-    rightLowerPoint = Point("",rightPoint.x, functionValue(bottomSegment, rightPoint.x))
+    leftUpperPoint = Point(leftPoint.x, functionValue(topSegment, leftPoint.x))
+    leftLowerPoint = Point(leftPoint.x, functionValue(bottomSegment, leftPoint.x))
+    rightUpperPoint = Point(rightPoint.x, functionValue(topSegment, rightPoint.x))
+    rightLowerPoint = Point(rightPoint.x, functionValue(bottomSegment, rightPoint.x))
 
-    newTr.topSegment = Segment("",leftUpperPoint, rightUpperPoint)
-    newTr.bottomSegment = Segment("",leftLowerPoint, rightLowerPoint)
+    newTr.topSegment = Segment(leftUpperPoint, rightUpperPoint)
+    newTr.bottomSegment = Segment(leftLowerPoint, rightLowerPoint)
     newTr.leftPoint = leftPoint
     newTr.rightPoint = rightPoint
 
     return newTr
+
+
+class Dag:
+    def __init__(self, root):
+        self.root = root
+
+    def updateRoot(self, root):
+        self.root = root
+
