@@ -51,5 +51,17 @@ class Visualizer:
             self.traverseDag(dagData, node.above)
             self.traverseDag(dagData, node.below)
 
+    def addDagWithResult(self, dag, tr, point):
+        dagData = DagData()
+        self.traverseDag(dagData, dag.root)
+        trLines = []
+        for trapezoid in dagData.trapezoids:
+            trLines.extend(trapezoid)
+        self.scenes.append(Scene([PointsCollection(dagData.points, color=self.point_color),
+                                  PointsCollection([point.toList()], color='red')],
+                                 [LinesCollection(trLines, color=self.trapezoid_color),
+                                  LinesCollection(dagData.lines, color=self.line_color),
+                                  LinesCollection(tr.getDrawable(), color='magenta')]))
+
     def getScenes(self):
         return self.scenes

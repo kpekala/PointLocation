@@ -2,6 +2,7 @@ from ui.lib import Plot
 from ui.plot_utils import getLineSegments
 from ui.visualizer import Visualizer
 from structures import *
+import random
 
 """
     Segment intersects only one
@@ -144,12 +145,11 @@ def findArea(node, point):
 
 def buildDag(lineSegments, visualizer = None):
     dag = Dag(createBoundingBox())
-
+    random.shuffle(lineSegments)
     for segment in lineSegments:
         intersectedTrapezoids = []
         findIntersectedTrapezoids(dag.root, segment, intersectedTrapezoids)
-        print(len(intersectedTrapezoids))
-        # handle new segment in two cases: it either intersects one trapezoid or many of them
+        #print(len(intersectedTrapezoids))
         if len(intersectedTrapezoids) == 1:
             simpleCase(dag, intersectedTrapezoids[0], segment, visualizer)
         else:

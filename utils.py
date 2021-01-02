@@ -41,3 +41,11 @@ def functionValue(seg, x):
     a, b = coefficients(seg.leftPoint, seg.rightPoint)
     return a*x + b
 
+def functionValueWithCheck(seg, x):
+    a, b = coefficients(seg.leftPoint, seg.rightPoint)
+    val = a*x + b
+    if min(seg.leftPoint.y, seg.rightPoint.y) <= val <= max(seg.rightPoint.y, seg.leftPoint.y):
+        return val
+    else:
+        return seg.rightPoint.y 
+
