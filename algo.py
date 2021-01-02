@@ -1,6 +1,3 @@
-from ui.lib import Plot
-from ui.plot_utils import getLineSegments
-from ui.visualizer import Visualizer
 from structures import *
 import random
 
@@ -78,6 +75,7 @@ def hardCase(dag, intersectedTrapezoids, segment, visualizer):
                 lowerMidTrapezoid = TrapezoidNode(segment, trapezoid.bottomSegment, trapezoid.leftPoint, None)
             else:
                 upperMidTrapezoid = TrapezoidNode(trapezoid.topSegment, segment, trapezoid.leftPoint, None)
+
 
             if segment.isPointAbove(trapezoid.rightPoint):
                 upperMidTrapezoid.rightPoint = trapezoid.rightPoint
